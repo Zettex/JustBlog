@@ -1,0 +1,52 @@
+﻿@model JustBlog.Models.LoginModel
+
+@{
+
+    var msg = "";
+    var redirectUrl = "";
+    if (Model != null)
+    {
+        msg = Model.Message == null ? "" : Model.Message;
+        redirectUrl = Model.RedirectUrl == null ? "" : Model.RedirectUrl;
+    }
+
+    ViewBag.Title = "Авторизация";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Авторизация</h2>
+
+@Scripts.Render("~/jquery", "~/jqueryval", "~/jqueryunobtrusiveval")
+
+<div>
+
+    @using (Html.BeginForm("Login", "Account"))
+    {
+
+        @Html.ValidationSummary(true)
+
+        <p>
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+        </p>
+
+        <p>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </p>
+
+        @Html.Hidden("ReturnUrl")
+        <input type="hidden" name="Message" value="@msg" />
+        <input type="hidden" name="RedirectUrl" value="@redirectUrl" />
+        @Html.AntiForgeryToken()
+
+        <p>
+            <input class="submit" type="submit" value="Войти">
+        </p>
+    }
+</div>
+
+
+

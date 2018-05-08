@@ -1,0 +1,237 @@
+﻿@using System.Configuration
+
+
+@{
+    Layout = null;
+    string avatarName = "";
+    string avatarPath = "";
+    if (Session["userId"] != null)
+    {
+        avatarPath = "~\\Content\\Users\\" + Session["userId"].ToString() + "\\Avatar\\";
+        avatarName = System.Web.HttpContext.Current.Server.MapPath(avatarPath);
+        avatarName = new DirectoryInfo(avatarName).GetFiles()
+                              .Select(fi => fi.Name)
+                              .FirstOrDefault(name => name != "Thumbs.db");
+    }
+
+    bool isUserProfile = false;
+    var action = ((string)ViewContext.RouteData.Values["Action"]).ToLower();
+
+
+    if (action == "user" || action == "avatarupload")
+    {
+        isUserProfile = true;
+    }
+
+    var blogTitle = ConfigurationManager.AppSettings["BlogTitle"];
+    //var feedBurnerUrl = ConfigurationManager.AppSettings["FeedBurnerUrl"];
+}
+
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js ie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!-->
+<html class="no-js" lang="ru">
+ <!--<![endif]-->
+<head>
+
+    <!--- Basic Page Needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@(ViewBag.Description ?? ConfigurationManager.AppSettings["MetaDescription"])">
+    <meta name="author" content="@ConfigurationManager.AppSettings["Author"]">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+     ================================================== -->
+    <link rel="stylesheet" href="~/Content/themes/KeepSimple20/css/default.css">
+    <link rel="stylesheet" href="~/Content/themes/KeepSimple20/css/layout.css">
+    <link rel="stylesheet" href="~/Content/themes/KeepSimple20/css/media-queries.css">
+
+    @if (isUserProfile)
+    {
+        <link rel="stylesheet" href="~/Content/themes/KeepSimple20/css/UserPageStyle.css">
+    }
+    <!-- Script
+    ================================================== -->
+    <script src="~/Content/themes/KeepSimple20/js/modernizr.js"></script>
+
+    <!-- Favicons
+     ================================================== -->
+    <link rel="shortcut icon" href="~/Content/themes/KeepSimple20/favicon.png">
+
+</head>
+
+<body>
+
+    <!-- Header
+    ================================================== -->
+    <header id="top">
+
+        <div class="row">
+
+            <div class="header-content twelve columns">
+
+                <h1 id="logo-text"><a href="/" title="">@blogTitle</a></h1>
+                <p id="intro">Put your awesome slogan here...</p>
+
+            </div>
+
+        </div>
+
+        <nav id="nav-wrap">
+
+            <a class="mobile-btn" href="#nav-wrap" title="Показать навигацию">Показать Меню</a>
+            <a class="mobile-btn" href="#" title="Скрыть навигацию">Скрыть Меню</a>
+
+            <div class="row">
+
+                <ul id="nav" class="nav">
+                    <li class="@(action == "posts" ? "current" : "")">@Html.ActionLink("Главная", "Posts", "Blog")</li>
+                    <li class="@(action == "contact" ? "current" : "")">@Html.ActionLink("Связаться со мной", "Contact", "Blog")</li>
+                    <li class="@(action == "aboutme" ? "current" : "")">@Html.ActionLink("О блоге", "AboutBlog", "Blog")</li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated && Session["userId"] != null)
+                    {
+                        <li id="user-avatar" class="has-children right">
+                            <a href='@Url.Action("Aboutme", "Account")'>
+                                <img src="@Url.Content(avatarPath + avatarName)">
+                            </a>
+                            <ul>
+                                <li>@Html.UserLink(Session["userId"].ToString())</li>
+                                <li>@Html.ActionLink("Выход", "Logout", "Account")</li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="@(action == "register" ? "current right" : "right")">@Html.ActionLink("Регистрация", "Register", "Account")</li>
+                        <li class="@(action == "login" ? "current right" : "right")">@Html.ActionLink("Войти", "Login", "Account")</li>
+                    }
+                </ul> <!-- end #nav -->
+
+            </div>
+
+        </nav> <!-- end #nav-wrap -->
+
+    </header> <!-- Header End -->
+    <!-- Content
+    ================================================== -->
+    <div id="content-wrap">
+
+        <div class="row">
+        
+            @if (isUserProfile)
+            {
+                @RenderBody()
+            }
+            else
+            {
+                <div id="main" class="eight columns">
+                    @RenderBody()
+                </div> <!-- end main -->
+
+                <div id="sidebar" class="four columns">
+                    @Html.Partial("_Search")
+                    @Html.Action("Sidebar", "Blog")
+                </div> <!-- end sidebar -->
+            }
+
+
+
+        </div> <!-- end row -->
+
+        @if (action == "posts")
+        {
+            @Html.Partial("_Pager")
+        }
+
+    </div> <!-- end content-wrap -->
+    <!-- Footer
+    ================================================== -->
+    <footer>
+
+        <div class="row">
+
+            <div class="twelve columns">
+                <ul class="social-links">
+                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                    <li><a href="#"><i class="fa fa-github-square"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="six columns info">
+
+                <h3>About Keep It Simple</h3>
+
+                <p>
+                    This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
+                    Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
+                    nibh id elit.
+                </p>
+
+                <p>
+                    Lorem ipsum Sed nulla deserunt voluptate elit occaecat culpa cupidatat sit irure sint
+                    sint incididunt cupidatat esse in Ut sed commodo tempor consequat culpa fugiat incididunt.
+                </p>
+
+            </div>
+
+            <div class="four columns">
+
+                <h3>Photostream</h3>
+
+                <ul class="photostream group">
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                </ul>
+
+            </div>
+
+            <div class="two columns">
+                <h3 class="social">Navigate</h3>
+
+                <ul class="navigate group">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Demo</a></li>
+                    <li><a href="#">Archives</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </div>
+
+            <p class="copyright">&copy; Copyright 2018 JustBlog.</p>
+
+        </div> <!-- End row -->
+
+        <div id="go-top"><a class="smoothscroll" title="Back to Top" href="#top"><i class="fa fa-chevron-up"></i></a></div>
+
+    </footer> <!-- End Footer-->
+    <!-- Java Script
+    ================================================== -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+    <script type="text/javascript" src="~/Content/themes/KeepSimple20/js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Content/themes/KeepSimple20/js/main.js"></script>
+    <script src="~/Scripts/app.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
+    <script src="~/Scripts/notify.settings.js"></script>
+
+</body>
+
+</html>

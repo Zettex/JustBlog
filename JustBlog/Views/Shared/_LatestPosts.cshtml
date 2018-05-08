@@ -1,0 +1,21 @@
+﻿@model IList<JustBlog.Core.Objects.Post>
+
+<!-- Widget to display latest posts in sidebar -->
+@* TODO: Rename (to popular(h3)) or select  popular *@
+<div class="widget widget_popular">
+    <h3>Latest Post.</h3>
+
+    @if (Model.Count > 0)
+    {
+        <ul class="link-list">
+            @foreach (var post in Model)
+            {
+                <li>@Html.PostLink(post)</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No posts found!</p>
+    }
+</div>

@@ -1,0 +1,18 @@
+﻿@helper Tags(System.Web.Mvc.HtmlHelper htmlHelper, IList<JustBlog.Core.Objects.Tag> tags)
+{
+    bool temp = false;
+    foreach (var tag in tags)
+    {
+        if (temp)
+        {
+            <span class="meta-sep">&bull;</span>
+            @JustBlog.MvcHtmlExtensions.TagLink(htmlHelper, tag)
+        }
+        else
+        {
+            @JustBlog.MvcHtmlExtensions.TagLink(htmlHelper, tag)
+            temp = !temp;
+        }
+
+    }
+}

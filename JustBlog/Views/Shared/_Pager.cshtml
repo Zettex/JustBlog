@@ -1,0 +1,7 @@
+﻿@using PagedList.Mvc
+@using JustBlog;
+
+@model JustBlog.Models.ListViewModel
+
+
+@Html.PagedListPager(Model.Posts, page => Url.Action("Posts", new { page = page }), new CustomPagedListRenderOptions())

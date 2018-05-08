@@ -1,0 +1,44 @@
+﻿@model JustBlog.Core.Objects.Post
+
+@{
+    ViewBag.Title = Model.Title;
+    ViewBag.Keywords = string.Join(" ", Model.Tags.Select(t => t.Name).ToArray());
+    ViewBag.Description = Model.Meta;
+}
+
+<article class="entry">
+
+    <header class="entry-header">
+
+        <h2 class="entry-title">
+            @Model.Title
+        </h2>
+
+        <div class="entry-meta">
+            <ul>
+                <li>@Model.PostedOn.ToConfigLocalTime()</li>
+                <span class="meta-sep">&bull;</span>
+                <li>
+                    @Html.CategoryLink(Model.Category)
+                </li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="entry-content">
+        @Html.Raw(Model.Description)
+    </div>
+
+    <p class="tags">
+        <span>Tagged in </span>:
+        @Helpers.Tags(Html, Model.Tags)
+    </p>
+
+    @*<ul class="post-nav group">
+        <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
+        <li class="next"><a rel="next" href="#"><strong>Next Article</strong> Morbi Elit Consequat Ipsum</a></li>
+    </ul>*@
+
+    @Html.Partial("_Disqus")
+</article>

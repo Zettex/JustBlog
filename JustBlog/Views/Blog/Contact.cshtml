@@ -1,0 +1,53 @@
+﻿@model JustBlog.Core.Objects.Contact
+
+@{
+    ViewBag.Title = "Написать Автору";
+}
+
+<h2>Написать Автору</h2>
+
+@Scripts.Render("~/jquery", "~/jqueryval", "~/jqueryunobtrusiveval")
+
+<div>
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.ValidationSummary(true)
+
+        <p>
+            @Html.LabelFor(m => m.Name)
+            @Html.TextBoxFor(m => m.Name)
+            @Html.ValidationMessageFor(m => m.Name)
+        </p>
+
+        <p>
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
+        </p>
+
+        <p>
+            @Html.LabelFor(m => m.Website)
+            @Html.TextBoxFor(m => m.Website)
+            @Html.ValidationMessageFor(m => m.Website)
+        </p>
+
+        <p>
+            @Html.LabelFor(m => m.Subject)
+            @Html.TextBoxFor(m => m.Subject)
+            @Html.ValidationMessageFor(m => m.Subject)
+        </p>
+
+        <p>
+            @Html.LabelFor(m => m.Body)
+            @Html.TextAreaFor(m => m.Body, new { rows = 10 })
+            @Html.ValidationMessageFor(m => m.Body)
+        </p>
+
+        <p>
+            <input class="submit" type="submit" value="submit">
+        </p>
+
+    }
+</div>

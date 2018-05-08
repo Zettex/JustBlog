@@ -1,0 +1,33 @@
+﻿@model JustBlog.Core.Objects.User
+
+<div class="widget widget_text group">
+    <h3>Статистика пользователя</h3>
+
+    <div class="user-statistic">
+        <table>
+            <tbody>
+                @*<tr>
+                    <td>
+                        Количество постов
+                    </td>
+                    <td></td>
+                </tr>*@
+                <tr>
+                    <td>
+                        Количество комментариев
+                    </td>
+                    <td>
+                        @Model.Comments.Count()
+                    </td>
+                </tr>
+                <tr>
+                    <td>Дата регистрации</td>
+                    <td>
+                        @Model.RegisterDate.ToShortDateString()
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

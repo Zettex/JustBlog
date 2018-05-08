@@ -1,0 +1,10 @@
+﻿<div class="widget widget_search">
+    <h3>Search</h3>
+
+    @using (Html.BeginForm("Search", "Blog", FormMethod.Get, new { id = "search-form" }))
+    {
+        <input id="s" class="text-search" name="s" type="text" value="Search here..." onblur="if(this.value == '') { this.value = 'Search here...'; }" onfocus="if (this.value == 'Search here...') { this.value = ''; }">
+        <input type="submit" value="" class="submit-search">
+
+    }
+</div>

@@ -1,0 +1,29 @@
+﻿@model JustBlog.Models.UserAvatarModel
+
+@{
+    bool canEdit = false;
+
+    if (Model != null)
+    {
+        canEdit = Model.CanEdit;
+    }
+}
+
+
+<img src="@Url.Content(Model.ImgPath)">
+
+@if (canEdit)
+{
+    <div class="loader-circle"></div>
+    using (Html.BeginForm("AvatarUpload", "Account", Model.UserId, FormMethod.Post, new
+    { id = "avatar-upload", enctype = "multipart/form-data" }))
+    {
+        @Html.TextBoxFor(m => m.File, new { type = "file" });
+        @Html.AntiForgeryToken()
+    }
+    <label for="File">
+        <span class="settings-upload-icon">
+            <i class="fa fa-upload"></i>
+        </span>
+    </label>
+}

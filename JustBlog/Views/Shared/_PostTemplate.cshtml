@@ -1,0 +1,29 @@
+﻿@model JustBlog.Core.Objects.Post
+
+<article class="entry">
+
+    <header class="entry-header">
+
+        <h2 class="entry-title">
+            @Html.PostLink(Model)
+        </h2>
+
+        <div class="entry-meta">
+            <ul>
+                <li>@Model.PostedOn.ToConfigLocalTime()</li>
+                <span class="meta-sep">&bull;</span>
+                <li>@Html.CategoryLink(Model.Category)</li>
+                <div id="disq-count">
+                    <span class="disqus-comment-count" data-disqus-identifier="@Model.Href(Url)"></span>
+                </div>
+            </ul>
+                
+        </div>
+
+    </header>
+
+    <div class="entry-content">
+        @Html.Raw(Model.ShortDescription)
+    </div>
+
+</article> <!-- end entry -->

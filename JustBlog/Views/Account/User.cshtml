@@ -1,0 +1,90 @@
+﻿@model JustBlog.Core.Objects.User
+
+@{
+    var msg = "";
+    var canEdit = false;
+
+    if (Model != null)
+    {
+        msg = Model.Message == null ? "" : Model.Message;
+        canEdit = Model.CanEdit;
+    }
+    ViewBag.Title = "Профиль пользователя";
+}
+
+
+<div id="main" class="eight columns">
+
+    <h2>Мои настройки</h2>
+
+    @Scripts.Render("~/jquery", "~/jqueryval", "~/jqueryunobtrusiveval")
+
+    <div class="settings-upload">
+        @Html.Action("UserAvatar", new { Model.Id })
+    </div>
+    <div>
+
+        @using (Html.BeginForm("User", "Account", Model.Id, FormMethod.Post))
+        {
+
+            @Html.ValidationSummary(true)
+
+            <p>
+                @Html.LabelFor(m => m.Nickname)
+                @Html.TextBoxFor(m => m.Nickname, canEdit)
+                @Html.ValidationMessageFor(m => m.Nickname)
+            </p>
+
+            <p>
+                @Html.LabelFor(m => m.FullName)
+                @Html.TextBoxFor(m => m.FullName, canEdit)
+            </p>
+
+            if (canEdit)
+            {
+                <p>
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, canEdit)
+                    @Html.ValidationMessageFor(m => m.Email)
+                </p>
+            }
+
+            <p>
+                @Html.LabelFor(m => m.Gender)
+                @Html.DropDownListFor(m => m.Gender,
+                                                                  new SelectList(new string[] { "Мужской", "Женский" }),
+                                                                  "Не указан",
+                                                                  canEdit)
+            </p>
+
+            <p>
+                @Html.LabelFor(m => m.Address)
+                @Html.TextBoxFor(m => m.Address, canEdit)
+            </p>
+
+            <p>
+                @Html.LabelFor(m => m.Site)
+                @Html.TextBoxFor(m => m.Site, canEdit)
+            </p>
+
+            <p>
+                @Html.LabelFor(m => m.AboutMe)
+                @Html.TextAreaFor(m => m.AboutMe, canEdit)
+            </p>
+
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="Message" name="Message" value="@msg" />
+
+            if (canEdit)
+            {
+                <p>
+                    <input class="submit" type="submit" value="Сохранить">
+                </p>
+            }
+        }
+    </div>
+</div> <!-- end main -->
+
+<div id="sidebar" class="four columns">
+    @Html.Action("UserSidebar", "Account", Model.Id)
+</div> <!-- end sidebar -->
