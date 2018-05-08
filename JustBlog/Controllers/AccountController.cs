@@ -104,6 +104,7 @@ namespace JustBlog.Controllers
                         model.Message = "Регистрация прошла успешно";
                         model.RedirectUrl = Url.Action("Login", "Account");
                         return View(model);
+                    
                     }
                 }
                 else
