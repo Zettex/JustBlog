@@ -141,6 +141,7 @@ namespace JustBlog.Controllers
                 {
                     model.Message = TempData["msg"].ToString();
                     TempData["msg"] = null;
+                    //olololo
                 }
 
                 return View(model);
