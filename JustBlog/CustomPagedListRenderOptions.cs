@@ -33,6 +33,7 @@ namespace JustBlog
             ContainerDivClasses = new[] { "pagination-container" };
             UlElementClasses = new[] { "pagination" };
             LiElementClasses = new[] { "page-numbers" };
+
             FunctionToTransformEachPageLink = (liTag, aTag) => {
                 
                 if(aTag.Attributes.ContainsKey("rel") && !aTag.Attributes.ContainsKey("href"))
@@ -47,5 +48,6 @@ namespace JustBlog
                 return aTag;
             };
         }
+
     }
 }

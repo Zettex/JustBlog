@@ -8,7 +8,7 @@
 
 <article class="entry">
 
-    <header class="entry-header">
+    <header class="entry-header" data-id="@Model.Id">
 
         <h2 class="entry-title">
             @Model.Title
@@ -31,14 +31,22 @@
     </div>
 
     <p class="tags">
-        <span>Tagged in </span>:
+        <span>Теги</span>:
         @Helpers.Tags(Html, Model.Tags)
     </p>
 
     @*<ul class="post-nav group">
-        <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
-        <li class="next"><a rel="next" href="#"><strong>Next Article</strong> Morbi Elit Consequat Ipsum</a></li>
-    </ul>*@
+            <li class="prev"><a rel="prev" href="#"><strong>Previous Article</strong> Duis Sed Odio Sit Amet Nibh Vulputate</a></li>
+            <li class="next"><a rel="next" href="#"><strong>Next Article</strong> Morbi Elit Consequat Ipsum</a></li>
+        </ul>*@
 
-    @Html.Partial("_Disqus")
+
+    <div id="comments">
+
+        @Html.Partial("_Comments", Model.Comments)
+
+    </div>  <!-- Comments End -->
+
+
+    @*@Html.Partial("_Disqus")*@
 </article>

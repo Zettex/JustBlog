@@ -52,9 +52,9 @@
             <p>
                 @Html.LabelFor(m => m.Gender)
                 @Html.DropDownListFor(m => m.Gender,
-                                                                  new SelectList(new string[] { "Мужской", "Женский" }),
-                                                                  "Не указан",
-                                                                  canEdit)
+                                    new SelectList(new string[] { "Мужской", "Женский" }),
+                                    "Не указан",
+                                    canEdit)
             </p>
 
             <p>
@@ -86,5 +86,5 @@
 </div> <!-- end main -->
 
 <div id="sidebar" class="four columns">
-    @Html.Action("UserSidebar", "Account", Model.Id)
+    @Html.Action("UserSidebar", "Account", Model)
 </div> <!-- end sidebar -->

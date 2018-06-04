@@ -17,7 +17,12 @@
                         Количество комментариев
                     </td>
                     <td>
-                        @Model.Comments.Count()
+                        @if (Model.Comments == null)
+                        {
+                            @Html.Raw("0");
+                        } else {
+                            @Model.Comments.Count();
+                        }
                     </td>
                 </tr>
                 <tr>

@@ -141,7 +141,6 @@ namespace JustBlog.Controllers
                 {
                     model.Message = TempData["msg"].ToString();
                     TempData["msg"] = null;
-                    //olololo
                 }
 
                 return View(model);
@@ -189,6 +188,33 @@ namespace JustBlog.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult AddComment(Comment model)
+        {
+            model.User = _blogRepository.User((int)Session["userId"]);
+            //_blogRepository.AddComment(model);
+
+            var comments = _blogRepository.Comments(model.Post.Id);
+            return PartialView("_Comments", comments);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult EditComment(Comment model)
+        {
+            //_blogRepository.EditComment(model);
+
+            var comments = _blogRepository.Comments(model.Post.Id);
+            return PartialView("_Comments", comments);
+        }
+
+        [HttpPost]
+        public JsonResult IsLoggedIn()
+        {
+            return Json(new { isLoggedIn = _accountProvider.IsLoggedIn });
         }
 
         [HttpPost]

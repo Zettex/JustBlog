@@ -226,5 +226,15 @@ namespace JustBlog.Core
         void EditUser(User user, int userId);
 
         string GetRole(string username);
+
+        IList<Comment> Comments();
+
+        IList<Comment> Comments(int postId);
+
+        Comment Comment(int commentId);
+
+        int AddComment(Comment comment);
+
+        void EditComment(Comment comment);
     }
 }

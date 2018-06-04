@@ -110,7 +110,7 @@
                     else
                     {
                         <li class="@(action == "register" ? "current right" : "right")">@Html.ActionLink("Регистрация", "Register", "Account")</li>
-                        <li class="@(action == "login" ? "current right" : "right")">@Html.ActionLink("Войти", "Login", "Account")</li>
+                        <li class="@(action == "login" ? "current right" : "right")">@Html.ActionLink("Вход", "Login", "Account")</li>
                     }
                 </ul> <!-- end #nav -->
 
@@ -140,8 +140,6 @@
                     @Html.Action("Sidebar", "Blog")
                 </div> <!-- end sidebar -->
             }
-
-
 
         </div> <!-- end row -->
 

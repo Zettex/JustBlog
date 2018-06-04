@@ -31,6 +31,7 @@ namespace JustBlog
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ModelBinders.Binders.Add(typeof(Post), new PostModelBinder(Kernel));
+            ModelBinders.Binders.Add(typeof(Comment), new CommentModelBinder(Kernel));
 
             HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
 

@@ -52,6 +52,24 @@ namespace JustBlog
             );
 
             routes.MapRoute(
+              "IsLoggedIn",
+              "IsLoggedIn",
+              new { controller = "Account", action = "IsLoggedIn" }
+            );
+
+            routes.MapRoute(
+              "AddComment",
+              "AddComment",
+              new { controller = "Account", action = "AddComment" }
+            );
+
+            routes.MapRoute(
+              "EditComment",
+              "EditComment",
+              new { controller = "Account", action = "EditComment" }
+            );
+
+            routes.MapRoute(
               "AvatarUpload",
               "AvatarUpload/{userId}",
               new { controller = "Account", action = "AvatarUpload" }

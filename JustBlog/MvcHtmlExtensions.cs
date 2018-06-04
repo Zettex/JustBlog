@@ -26,9 +26,9 @@ namespace JustBlog
             return helper.ActionLink(tag.Name, "Tag", "Blog", new { tag = tag.UrlSlug }, new { title = String.Format("Все посты с тегом {0}", tag.Name) });
         }
 
-        public static MvcHtmlString UserLink(this HtmlHelper helper, string userId)
+        public static MvcHtmlString UserLink(this HtmlHelper helper, string userId, string text = "Профиль пользователя")
         {
-            return helper.ActionLink("Профиль пользователя", "User", "Account", new { userId }, null );
+            return helper.ActionLink(text, "User", "Account", new { userId }, null );
         }
 
         public static MvcHtmlString TextBoxFor<TModel, TValue>(this HtmlHelper<TModel> htmlHelper,

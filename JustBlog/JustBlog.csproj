@@ -145,6 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="CommentModelBinder.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
@@ -1421,6 +1422,7 @@
     <Content Include="Views\Blog\AboutBlog.cshtml" />
     <Content Include="Views\Account\User.cshtml" />
     <Content Include="Views\Account\_UserAvatar.cshtml" />
+    <Content Include="Views\Shared\_Comments.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

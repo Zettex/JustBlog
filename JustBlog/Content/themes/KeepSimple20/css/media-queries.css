@@ -296,7 +296,7 @@
       width: 100%;
       margin-left: 0;
    }
-   .commentlist > li { padding-left: 0; }
+   .commentlist > li { padding-left: 20px; }
    .commentlist  li .avatar { display: none; }
 
    /* comment form */

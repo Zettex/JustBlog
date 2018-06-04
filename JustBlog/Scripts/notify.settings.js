@@ -1,17 +1,12 @@
 ﻿$(function () {
-        
-    $.notify.defaults({
-            position: "bottom right"
-        }
-    );
-
+      
     var frm = $('#main form');
 
     var msg = $("input[name='Message']", frm).val();
     var redirectUrl = $("input[name='RedirectUrl']", frm).val();
 
     if (msg) {
-        $.notify(msg, "success");
+        notify(msg, "success");
     }
 
     setTimeout(function () {

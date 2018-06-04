@@ -25,5 +25,8 @@ namespace JustBlog.Core.Objects
 
         public virtual Post Post
         { get; set; }
+
+        public virtual bool Deleted
+        { get; set; }
     }
 }

@@ -88,8 +88,8 @@ namespace JustBlog.Core.Objects
         public virtual IList<Tag> Tags
         { get; set; }
 
-        public virtual User User
-        { get; set; }
+        //public virtual User User
+        //{ get; set; }
 
         [JsonIgnore]
         public virtual IList<Comment> Comments

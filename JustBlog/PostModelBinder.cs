@@ -23,31 +23,41 @@ namespace JustBlog
 
         public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
-            var post = (Post)base.BindModel(controllerContext, bindingContext);
-
             var blogRepository = _kernel.Get<IBlogRepository>();
 
-            if (post.Category != null)
-                post.Category = blogRepository.Category(post.Category.Id);
-
-            var tags = bindingContext.ValueProvider.GetValue("Tags").AttemptedValue.Split(',');
-
-            if (tags.Length > 0)
+            if (bindingContext.ValueProvider.GetValue("Post") != null)
             {
-                post.Tags = new List<Tag>();
+                var postId = Int32.Parse(bindingContext.ValueProvider.GetValue("Post").AttemptedValue);
+                var post = blogRepository.Post(postId);
 
-                foreach (var tag in tags)
-                {
-                    post.Tags.Add(blogRepository.Tag(int.Parse(tag.Trim())));
-                }
+                return post;
             }
-
-            if (bindingContext.ValueProvider.GetValue("oper").AttemptedValue.Equals("edit"))
-                post.Modified = DateTime.UtcNow; // dates are stored in UTC timezone.
             else
-                post.PostedOn = DateTime.UtcNow;
+            {
+                var post = (Post)base.BindModel(controllerContext, bindingContext);            
 
-            return post;
+                if (post.Category != null)
+                    post.Category = blogRepository.Category(post.Category.Id);
+
+                var tags = bindingContext.ValueProvider.GetValue("Tags").AttemptedValue.Split(',');
+
+                if (tags.Length > 0)
+                {
+                    post.Tags = new List<Tag>();
+
+                    foreach (var tag in tags)
+                    {
+                        post.Tags.Add(blogRepository.Tag(int.Parse(tag.Trim())));
+                    }
+                }
+
+                if (bindingContext.ValueProvider.GetValue("oper").AttemptedValue.Equals("edit"))
+                    post.Modified = DateTime.UtcNow; // dates are stored in UTC timezone.
+                else
+                    post.PostedOn = DateTime.UtcNow;
+
+                return post;
+            }
         }
     }
 }

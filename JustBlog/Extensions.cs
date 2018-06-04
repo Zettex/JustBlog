@@ -7,6 +7,8 @@ namespace JustBlog
 {
     public static class Extensions
     {
+        static TimeZoneInfo TZInfo = TimeZoneInfo.FindSystemTimeZoneById(ConfigurationManager.AppSettings["Timezone"]);
+
         /// <summary>
         /// Convert the passed datetime from UTC timezone to configured timezone in web.config.
         /// </summary>
@@ -14,8 +16,14 @@ namespace JustBlog
         /// <returns></returns>
         public static string ToConfigLocalTime(this DateTime utcDT)
         {
-            var istTZ = TimeZoneInfo.FindSystemTimeZoneById(ConfigurationManager.AppSettings["Timezone"]);
-            return String.Format("{0} ({1})", TimeZoneInfo.ConvertTimeFromUtc(utcDT, istTZ).ToShortDateString(), ConfigurationManager.AppSettings["TimezoneAbbr"]);
+            return String.Format("{0} ({1})", TimeZoneInfo.ConvertTimeFromUtc(utcDT, TZInfo).ToShortDateString(), ConfigurationManager.AppSettings["TimezoneAbbr"]);
+        }
+
+        public static string GetLocalCommentDateSent(this DateTime utcDT)
+        {
+            var convertedDate = TimeZoneInfo.ConvertTimeFromUtc(utcDT, TZInfo);
+
+            return convertedDate.ToString("dd MMMM, yyyy @ HH:mm");
         }
 
         public static string Href(this Post post, UrlHelper helper)

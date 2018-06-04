@@ -1,0 +1,122 @@
+﻿@model IEnumerable<JustBlog.Core.Objects.Comment>
+
+@if (Model.Count() > 0)
+{
+    <h3>Комментариев: @Model.Count()</h3>
+
+    // Output comments by recursion function
+    @helper OutputTreeComments(IEnumerable<JustBlog.Core.Objects.Comment> comments, int depth = 1)
+    {
+        foreach (var comment in comments)
+        {
+            <li class="comment depth-@depth" data-id="@comment.Id">
+
+                @{
+                    var avatarPath = "~\\Content\\Users\\" + comment.User.Id.ToString() + "\\Avatar\\";
+                    var avatarName = System.Web.HttpContext.Current.Server.MapPath(avatarPath);
+                    avatarName = new DirectoryInfo(avatarName).GetFiles()
+                                        .Select(fi => fi.Name)
+                                        .FirstOrDefault(name => name != "Thumbs.db");
+                }
+
+                <div class="avatar">
+                    <img width="50" height="50" class="avatar" src="@Url.Content(avatarPath + avatarName)" alt="No Avatar">
+                </div>
+
+                <div class="comment-content">
+
+                    <div class="comment-info">
+                        <cite>@Html.UserLink(comment.User.Id.ToString(), comment.User.Nickname)</cite>
+                        @if (comment.Owner != null)
+                        {
+                            <i class="fa fa-share" style="margin: 0 5px; font-size: 13px;"></i>
+                            <cite class="reply-to">@Html.UserLink(comment.Owner.User.Id.ToString(), comment.Owner.User.Nickname)</cite>
+                        }
+                        <div class="comment-meta">
+                            <time class="comment-time">@comment.DateSent.GetLocalCommentDateSent()</time>
+
+                        </div>
+                    </div>
+
+                    <div class="comment-text">
+                            @if (comment.Deleted)
+                            {
+                                <p style="color: #919191;">
+                                    @Html.Raw("Комментарий был удален");
+                                </p>
+                            } else {
+                                <p>
+                                    @comment.Content;
+                                </p>
+                            }
+                    </div>
+
+                </div>
+
+                 @if (HttpContext.Current.User.Identity.IsAuthenticated && Session["userId"] != null)
+                 {
+                    <div class="comment-controls">
+                    
+                        <a class="cancel-controls">отмена</a>
+                        <a class="reply">ответить</a>
+                        @if (comment.User.Id == (int)Session["userId"] || Session["role"].ToString() == "Admin") {
+                            <a class="edit">ред.</a>
+                            <a class="delete">удалить</a>
+                        }
+                    </div>
+                 }
+
+                @{
+                    var children = Model.Where(x => x.Owner != null && x.Owner.Id == comment.Id);
+
+                    if (children.Count() > 0)
+                    {
+                        <ul class="children">
+                            @OutputTreeComments(children, depth + 1)
+                        </ul>
+                    }
+                }
+
+            </li>
+        }
+    }
+
+    <ol class="commentlist">
+
+        @OutputTreeComments(Model.Where(x => x.Owner == null))
+
+    </ol> <!-- Commentlist End -->
+
+}
+else
+{
+    <h3 style="text-align: center; margin-bottom: 35px;">Нет ни одного комментария</h3>
+}
+
+@if (HttpContext.Current.User.Identity.IsAuthenticated && Session["userId"] != null)
+{
+    <!-- respond -->
+    <div class="respond">
+
+        <h3>Оставьте комментарий</h3>
+
+        <!-- form -->
+        <form name="contactForm" id="contactForm" method="post" action="">
+            <fieldset>
+                <div class="message group">
+                    <textarea name="cMessage" id="cMessage" rows="4" cols="50"></textarea>
+                </div>
+
+                <button type="submit" class="submit">Отправить</button>
+
+            </fieldset>
+        </form> <!-- Form End -->
+
+    </div> <!-- Respond End -->
+
+}
+else {
+    <div id="commnt-reply__alert">
+        <p>Чтобы оставить комментарий, необходимо @Html.ActionLink("зарегистрироваться", "Register", "Account") или @Html.ActionLink("войти", "Login", "Account")</p>
+    </div>
+}

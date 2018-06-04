@@ -312,7 +312,7 @@ ul.circle { list-style: circle }
 ul.disc { list-style: disc }
 ul li { padding-left: 4px; }
 ul.large li { }
-li p { }
+li p { margin-bottom: 10px; }
 ul ul, ul ol,
 ol ol, ol ul { margin: 6px 0 6px 17px; }
 ul ul li, ul ol li,

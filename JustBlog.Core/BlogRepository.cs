@@ -699,5 +699,39 @@ namespace JustBlog.Core
 
             return user != null ? user.Role : null;
         }
+
+        public IList<Comment> Comments()
+        {
+            return _session.Query<Comment>().OrderBy(c => c.Id).ToList();
+        }
+        
+        public IList<Comment> Comments(int postId)
+        {
+            return _session.Query<Comment>().Where(c => c.Post.Id == postId).ToList();
+        }
+
+        public Comment Comment(int commentId)
+        {
+            return _session.Query<Comment>().FirstOrDefault(c => c.Id == commentId);
+        }
+
+        public int AddComment(Comment comment)
+        {
+            using (var tran = _session.BeginTransaction())
+            {
+                _session.Save(comment);
+                tran.Commit();
+                return comment.Id;
+            }
+        }
+
+        public void EditComment(Comment comment)
+        {
+            using (var tran = _session.BeginTransaction())
+            {
+                _session.SaveOrUpdate(comment);
+                tran.Commit();
+            }
+        }
     }
 }
