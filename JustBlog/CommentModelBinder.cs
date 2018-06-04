@@ -30,6 +30,10 @@ namespace JustBlog
                 var commentId = Int32.Parse(bindingContext.ValueProvider.GetValue("Id").AttemptedValue);
                 comment = blogRepository.Comment(commentId);
                 comment.Content = bindingContext.ValueProvider.GetValue("Content").AttemptedValue;
+                if (bindingContext.ValueProvider.GetValue("Deleted").AttemptedValue == "true")
+                {
+                    comment.Deleted = true;
+                }
 
                 return comment;
             }
@@ -38,8 +42,7 @@ namespace JustBlog
             {
                 comment.Id = 0;
                 comment.Content = bindingContext.ValueProvider.GetValue("Content").AttemptedValue;
-                var dateTime = DateTime.Parse(bindingContext.ValueProvider.GetValue("DateSent").AttemptedValue);
-                comment.DateSent = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+                comment.DateSent = DateTime.UtcNow;
                 var postId = Int32.Parse(bindingContext.ValueProvider.GetValue("Post").AttemptedValue);
                 comment.Post = blogRepository.Post(postId);
                 comment.Deleted = false;

@@ -42,11 +42,11 @@
                             @if (comment.Deleted)
                             {
                                 <p style="color: #919191;">
-                                    @Html.Raw("Комментарий был удален");
+                                    @Html.Raw("Комментарий был удален")
                                 </p>
                             } else {
                                 <p>
-                                    @comment.Content;
+                                    @comment.Content
                                 </p>
                             }
                     </div>
@@ -59,7 +59,7 @@
                     
                         <a class="cancel-controls">отмена</a>
                         <a class="reply">ответить</a>
-                        @if (comment.User.Id == (int)Session["userId"] || Session["role"].ToString() == "Admin") {
+                        @if ((comment.User.Id == (int)Session["userId"] || Session["role"].ToString() == "Admin") && !comment.Deleted) {
                             <a class="edit">ред.</a>
                             <a class="delete">удалить</a>
                         }

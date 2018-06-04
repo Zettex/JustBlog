@@ -31,7 +31,14 @@ namespace JustBlog.Controllers
         /// <returns></returns>
         public ActionResult Manage()
         {
-            return View();
+            if (Session["role"].ToString() == "Admin")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Posts", "Blog");
+            }
         }
 
         #region Posts

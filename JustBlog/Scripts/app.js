@@ -65,11 +65,12 @@
     }
 
     function deleteHandler() {
+        if (confirm("Вы действиельно хотите удалить комментарий?")) {
+            url = "/EditComment";
+            commentId = $($(this).parents(".comment")[0]).data("id");
 
-        url = "/EditComment";
-        commentId = $($(this).parents(".comment")[0]).data("id");
-
-        callAjax(true);
+            callAjax(true);
+        }
     }
 
     function cancelControlsHandler() {
@@ -101,10 +102,8 @@
                         method: "POST",
                         data: {
                             Id: commentId,
-                            DateSent: new Date().toUTCString(),
                             Content: $(".respond form textarea").val(),
                             Owner: ownerId,
-                            User: -1,
                             Post: postId,
                             Deleted: deleted
                         },

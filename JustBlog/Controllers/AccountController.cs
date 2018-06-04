@@ -195,7 +195,7 @@ namespace JustBlog.Controllers
         public ActionResult AddComment(Comment model)
         {
             model.User = _blogRepository.User((int)Session["userId"]);
-            //_blogRepository.AddComment(model);
+            _blogRepository.AddComment(model);
 
             var comments = _blogRepository.Comments(model.Post.Id);
             return PartialView("_Comments", comments);
@@ -205,7 +205,7 @@ namespace JustBlog.Controllers
         [Authorize]
         public ActionResult EditComment(Comment model)
         {
-            //_blogRepository.EditComment(model);
+            _blogRepository.EditComment(model);
 
             var comments = _blogRepository.Comments(model.Post.Id);
             return PartialView("_Comments", comments);

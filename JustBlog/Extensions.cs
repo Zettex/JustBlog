@@ -16,7 +16,7 @@ namespace JustBlog
         /// <returns></returns>
         public static string ToConfigLocalTime(this DateTime utcDT)
         {
-            return String.Format("{0} ({1})", TimeZoneInfo.ConvertTimeFromUtc(utcDT, TZInfo).ToShortDateString(), ConfigurationManager.AppSettings["TimezoneAbbr"]);
+            return String.Format("{0}", TimeZoneInfo.ConvertTimeFromUtc(utcDT, TZInfo).ToShortDateString());
         }
 
         public static string GetLocalCommentDateSent(this DateTime utcDT)
