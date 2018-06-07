@@ -1,5 +1,5 @@
 ﻿
-//$(function () {
+$(function () {
     
     // ----- Search handler -----------
     $('#search-form').submit(function () {
@@ -136,4 +136,4 @@
     $(".delete").click(deleteHandler);
 
     // ----- End comment handler -----------
-//});
+});

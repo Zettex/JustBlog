@@ -78,7 +78,7 @@
             <div class="header-content twelve columns">
 
                 <h1 id="logo-text"><a href="/" title="">@blogTitle</a></h1>
-                <p id="intro">Put your awesome slogan here...</p>
+                <p id="intro">Для кого IT — это не просто две буквы алфавита</p>
 
             </div>
 
@@ -97,6 +97,11 @@
                     <li class="@(action == "aboutme" ? "current" : "")">@Html.ActionLink("О блоге", "AboutBlog", "Blog")</li>
                     @if (HttpContext.Current.User.Identity.IsAuthenticated && Session["userId"] != null)
                     {
+                        if(Session["role"].ToString() == "Admin")
+                        {
+                            <li>@Html.ActionLink("Админ-панель", "Manage", "Admin")</li>
+                        }
+
                         <li id="user-avatar" class="has-children right">
                             <a href='@Url.Action("Aboutme", "Account")'>
                                 <img src="@Url.Content(avatarPath + avatarName)">
@@ -169,51 +174,63 @@
 
             <div class="six columns info">
 
-                <h3>About Keep It Simple</h3>
+                <h3>О блоге «ProgBlog»</h3>
 
                 <p>
-                    This is Photoshop's version  of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.
-                    Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem
-                    nibh id elit.
+                    «ProgBlog» — Ресурс для IT-специалистов, появившийся в 2018-м году.
                 </p>
 
                 <p>
-                    Lorem ipsum Sed nulla deserunt voluptate elit occaecat culpa cupidatat sit irure sint
-                    sint incididunt cupidatat esse in Ut sed commodo tempor consequat culpa fugiat incididunt.
+                    «ProgBlog» одинаково интересен программистам и разработчикам, администраторам и
+                    тестировщикам, дизайнерам и верстальщикам, аналитикам и копирайтерам, а также 
+                    всем тем, для кого IT — это не просто две буквы алфавита
                 </p>
 
             </div>
 
             <div class="four columns">
 
-                <h3>Photostream</h3>
+                <h3>Фотографии</h3>
 
                 <ul class="photostream group">
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
-                    <li><a href="#"><img alt="thumbnail" src="images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
+                    <li><a href="#"><img alt="thumbnail" src="~/Content/themes/KeepSimple20/images/thumb.jpg"></a></li>
                 </ul>
 
             </div>
 
             <div class="two columns">
-                <h3 class="social">Navigate</h3>
+                <h3 class="social">Навигация</h3>
 
                 <ul class="navigate group">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Demo</a></li>
-                    <li><a href="#">Archives</a></li>
-                    <li><a href="#">About</a></li>
+                    <li>@Html.ActionLink("Главная", "Posts", "Blog")</li>
+                    <li>@Html.ActionLink("Связаться со мной", "Contact", "Blog")</li>
+                    <li>@Html.ActionLink("О блоге", "AboutBlog", "Blog")</li>
+                    @if (HttpContext.Current.User.Identity.IsAuthenticated && Session["userId"] != null)
+                    {
+                        if(Session["role"].ToString() == "Admin")
+                        {
+                            <li>@Html.ActionLink("Админ-панель", "Manage", "Admin")</li>
+                        }
+
+                        <li>@Html.UserLink(Session["userId"].ToString())</li>
+                        <li>@Html.ActionLink("Выход", "Logout", "Account")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Регистрация", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Вход", "Login", "Account")</li>
+                    }
                 </ul>
             </div>
 
-            <p class="copyright">&copy; Copyright 2018 JustBlog.</p>
+            <p class="copyright">&copy; Copyright 2018 ProgBlog.</p>
 
         </div> <!-- End row -->
 

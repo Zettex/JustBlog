@@ -15,13 +15,13 @@ namespace JustBlog.Core.Objects
         public virtual int Id
         { get; set; }
 
-        [Required(ErrorMessage = "Name: Field is required")]
-        [StringLength(500, ErrorMessage = "Name: Length should not exceed 500 characters")]
+        [Required(ErrorMessage = "Название: Поле обязательно для заполнения")]
+        [StringLength(500, ErrorMessage = "Name: Длина не должна превышать 500 символов")]
         public virtual string Name
         { get; set; }
 
-        [Required(ErrorMessage = "UrlSlug: Field is required")]
-        [StringLength(500, ErrorMessage = "UrlSlug: Length should not exceed 500 characters")]
+        [Required(ErrorMessage = "UrlSlug: Поле обязательно для заполнения")]
+        [StringLength(500, ErrorMessage = "UrlSlug: Длина не должна превышать 500 символов")]
         public virtual string UrlSlug
         { get; set; }
 

@@ -35,17 +35,17 @@
 
     var colNames = [
 			'Id',
-			'Title',
-			'Short Description',
-			'Description',
-			'Category',
-			'Category',
-			'Tags',
+			'Заголовок',
+			'Краткое описание',
+			'Описание',
+			'Категория',
+			'Категория',
+			'Теги',
 			'Meta',
 			'Url Slug',
-			'Published',
-			'Posted On',
-			'Modified'
+			'Опубликовать',
+			'Опубликован',
+			'Изменен'
     ];
 
     var columns = [];
@@ -92,7 +92,7 @@
         custom_func: function (val, colname) {
           val = tinyMCE.get("ShortDescription").getContent();
           if (val) return [true, ""];
-          return [false, colname + ": Field is required"];
+          return [false, colname + ": Поле обязательно для заполнения"];
         },
         edithidden: true
       }
@@ -115,7 +115,7 @@
         custom_func: function (val, colname) {
           val = tinyMCE.get("Description").getContent();
           if (val) return [true, ""];
-          return [false, colname + ": Field is requred"];
+          return [false, colname + ": Поле обязательно для заполнения"];
         },
         edithidden: true
       }
@@ -271,7 +271,7 @@
     var addOptions = {
       url: '/Admin/AddPost',
       addCaption: 'Add Post',
-      processData: "Saving...",
+      processData: "Сохранение...",
       width: 900,
       closeAfterAdd: true,
       closeOnEscape: true,
@@ -285,7 +285,7 @@
     var editOptions = {
       url: '/Admin/EditPost',
       editCaption: 'Edit Post',
-      processData: "Saving...",
+      processData: "Сохранение...",
       width: 900,
       closeAfterEdit: true,
       closeOnEscape: true,
@@ -299,8 +299,8 @@
     var deleteOptions = {
       url: '/Admin/DeletePost',
       caption: 'Delete Post',
-      processData: "Saving...",
-      msg: "Delete the Post?",
+      processData: "Сохранение...",
+      msg: "Удалить пост?",
       closeOnEscape: true,
       afterSubmit: JustBlog.GridManager.afterSubmitHandler
     };
@@ -310,7 +310,7 @@
 
   //************************* CATEGORIES GRID
   JustBlog.GridManager.categoriesGrid = function (gridName, pagerName) {
-    var colNames = ['Id', 'Name', 'Url Slug', 'Description'];
+    var colNames = ['Id', 'Название', 'Url Slug', 'Описание'];
 
     var columns = [];
 
@@ -393,7 +393,7 @@
       url: '/Admin/EditCategory',
       width: 400,
       editCaption: 'Edit Category',
-      processData: "Saving...",
+      processData: "Сохранение...",
       closeAfterEdit: true,
       closeOnEscape: true,
       afterSubmit: function (response, postdata) {
@@ -404,7 +404,7 @@
           return [json.success, json.message, json.id];
         }
 
-        return [false, "Failed to get result from server.", null];
+        return [false, "Ошибка получения результата с сервера.", null];
       }
     };
 
@@ -412,7 +412,7 @@
       url: '/Admin/AddCategory',
       width: 400,
       addCaption: 'Add Category',
-      processData: "Saving...",
+      processData: "Сохранение...",
       closeAfterAdd: true,
       closeOnEscape: true,
       afterSubmit: function (response, postdata) {
@@ -423,16 +423,16 @@
           return [json.success, json.message, json.id];
         }
 
-        return [false, "Failed to get result from server.", null];
+        return [false, "Ошибка получения результата с сервера.", null];
       }
     };
 
     var deleteOptions = {
       url: '/Admin/DeleteCategory',
       caption: 'Delete Category',
-      processData: "Saving...",
+      processData: "Сохранение...",
       width: 500,
-      msg: "Delete the category? This will delete all the posts belonged to this category as well.",
+      msg: "Удалить категорию? Это удалит все посты с этой же категорией.",
       closeOnEscape: true,
       afterSubmit: JustBlog.GridManager.afterSubmitHandler
     };
@@ -448,7 +448,7 @@
 
   //************************* TAGS GRID
   JustBlog.GridManager.tagsGrid = function (gridName, pagerName) {
-    var colNames = ['Id', 'Name', 'Url Slug', 'Description'];
+    var colNames = ['Id', 'Название', 'Url Slug', 'Описание'];
 
     var columns = [];
 
@@ -530,7 +530,7 @@
     var editOptions = {
       url: '/Admin/EditTag',
       editCaption: 'Edit Tag',
-      processData: "Saving...",
+      processData: "Сохранение...",
       closeAfterEdit: true,
       closeOnEscape: true,
       width: 400,
@@ -542,14 +542,14 @@
           return [json.success, json.message, json.id];
         }
 
-        return [false, "Failed to get result from server.", null];
+        return [false, "Ошибка получения результата с сервера.", null];
       }
     };
 
     var addOptions = {
       url: '/Admin/AddTag',
       addCaption: 'Add Tag',
-      processData: "Saving...",
+      processData: "Сохранение...",
       closeAfterAdd: true,
       closeOnEscape: true,
       width: 400,
@@ -561,16 +561,16 @@
           return [json.success, json.message, json.id];
         }
 
-        return [false, "Failed to get result from server.", null];
+        return [false, "Ошибка получения результата с сервера.", null];
       }
     };
 
     var deleteOptions = {
       url: '/Admin/DeleteTag',
       caption: 'Delete Tag',
-      processData: "Saving...",
+      processData: "Сохранение...",
       width: 500,
-      msg: "Delete the tag? This will delete all the posts belonged to this tag as well.",
+      msg: "Удалить тег? Это удалит все посты с этим же тегом.",
       closeOnEscape: true,
       afterSubmit: JustBlog.GridManager.afterSubmitHandler
     };
@@ -590,7 +590,7 @@
 
     if (json) return [json.success, json.message, json.id];
 
-    return [false, "Failed to get result from server.", null];
+    return [false, "Ошибка получения результата с сервера", null];
   };
 
   $("#tabs").tabs({
