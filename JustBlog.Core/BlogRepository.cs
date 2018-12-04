@@ -684,6 +684,7 @@ namespace JustBlog.Core
             var temp = _session.Query<User>().FirstOrDefault(u => u.Id == userId);
             user.Id = userId;
             user.Password = temp.Password;
+            user.Comments = temp.Comments;
             user.Role = temp.Role;
             user.RegisterDate = temp.RegisterDate;
             using (var tran = _session.BeginTransaction())
