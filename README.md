@@ -1,4 +1,4 @@
-# A simple blog application that functions as a mini-social network.
+# A simple blog that functions as a mini-social network.
 
 ## Technologies:
 - ASP.NET MVC
