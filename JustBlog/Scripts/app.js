@@ -3,10 +3,15 @@ $(function () {
     
     // ----- Search handler -----------
     $('#search-form').submit(function () {
-        return !($("#s").val() == "" || $("#s").val() == "Search here...");
+        return !($("#s").val() === "" || $("#s").val() === "Search here...");
     });
     // ----- End search handler -----------
 
+    // ----- AvatarUpload handler -----------
+    $('#File').change(function () {
+        $('#avatar-upload').submit();
+    });
+    // ----- End AvatarUpload handler -----------
 
     // ----- Comments handlers -----------
     var commentId = "0";
@@ -135,5 +140,5 @@ $(function () {
     $(".edit").click(editHandler);
     $(".delete").click(deleteHandler);
 
-    // ----- End comment handler -----------
+    // ----- End comments handlers -----------
 });

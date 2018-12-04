@@ -1415,7 +1415,6 @@
     <Content Include="Content\themes\KeepSimple20\css\fonts\opensans\OpenSans-SemiboldItalic-webfont.woff" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <Content Include="Views\Shared\_UserSidebar.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -1423,6 +1422,8 @@
     <Content Include="Views\Account\User.cshtml" />
     <Content Include="Views\Account\_UserAvatar.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <None Include="Properties\PublishProfiles\Smarter ASP.pubxml" />
+    <None Include="Properties\PublishProfiles\Somee.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
