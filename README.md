@@ -7,6 +7,6 @@
 - Ninject
 
 ### [DEMO](http://tester12-001-site1.gtempurl.com/)
-### For to login as an administrator and check functionality:
+#### For to login as an administrator and check functionality:
 - Username: Admin 
 - Pass:     1234
