@@ -158,28 +158,33 @@ namespace JustBlog.Controllers
             {
                 if (ValidString(model.Nickname))
                 {
-
                     if (Session["username"].ToString() != model.Nickname)
-                    {
                         if (_blogRepository.UserNameExist(model.Nickname))
+                        {
                             ModelState.AddModelError("", "Указанное имя пользователя уже используется в системе");
-                    }
-                    else if (Session["email"].ToString() != model.Email)
-                    {
-                        if (_blogRepository.UserEmailExist(model.Email))
-                            ModelState.AddModelError("", "Указанный email уже используется в системе");
-                    }
-                    else
-                    {
-                        var userId = (int)Session["userId"];
-                        _blogRepository.EditUser(model, userId);
-                        if (model.Message == null)
-                            model.Message = "Данные были изменены";
-                        if (_accountProvider.IsLoggedIn && (int)Session["userId"] == userId)
-                            model.CanEdit = true;
+                            // go to default state
+                            model = _blogRepository.User(model.Id);
+                            return View(model);
+                        }
 
-                        return View(model);
-                    }
+                    if (Session["email"].ToString() != model.Email)
+                        if (_blogRepository.UserEmailExist(model.Email))
+                        {
+                            ModelState.AddModelError("", "Указанный email уже используется в системе");
+                            model = _blogRepository.User(model.Id);
+                            return View(model);
+                        }
+
+                    // apply changes
+                    var userId = (int)Session["userId"];
+                    _blogRepository.EditUser(model, userId);
+                    if (model.Message == null)
+                        model.Message = "Данные были изменены";
+                    if (_accountProvider.IsLoggedIn && (int)Session["userId"] == userId)
+                        model.CanEdit = true;
+
+                    return View(model);
+                    
                 }
                 else
                 {
